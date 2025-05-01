@@ -18,7 +18,7 @@ body {
 
 /* Header Styling */
 header {
-    display: flex;
+    display: flex-wrap;
     flex-direction: column;
     align-items: center;
     padding: 20px;
@@ -62,42 +62,148 @@ nav {
 
 .nav-links li a:hover {
     background-color: rgba(128, 0, 128, 0.2); /* Purple hover background */
-    box-shadow: 0 2px 5px rgba(128, 0, 128, 0.6); /* Purple box-shadow */
 }
 
 /* Mobile Dropdown Menu */
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: #e0e0e0;
-    font-size: 1.5rem;
-    cursor: pointer;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-}
 
 @media (max-width: 768px) {
+    .header-content {
+        display: flex;
+        flex-direction: row; /* Align elements in a row */
+        justify-content: space-between; /* Space out the title and button */
+        align-items: center; /* Vertically center the elements */
+        padding: 10px 20px; /* Add padding for spacing */
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+        text-align: left; /* Align the title to the left */
+        margin: 0; /* Remove extra margin */
+        flex: 1; /* Allow the title to take up available space */
+        justify-self: flex-start;
+    }
+
+    .menu-toggle {
+        display: flex;
+        flex-direction: column;
+        justify-self: flex-end;
+        justify-content: space-between;
+        width: 25px;
+        height: 20px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 1100; /* Ensure it stays above the dropdown */
+    }
+    
+    .menu-toggle span {
+        display: block;
+        width: 100%;
+        height: 4px;
+        background-color: #e0e0e0;
+        border-radius: 2px;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    
+    /* Transform the lines into an "X" when active */
+    .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0; /* Hide the middle line */
+    }
+    
+    .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    .nav {
+        width: 0;
+    }
+
+    .nav .active {
+        width: 100%; /* Expand the navigation to full width */
+        background-color: #121212;
+    }
+
     .nav-links {
         display: none;
         flex-direction: column;
         gap: 10px;
         background-color: #1e1e1e;
-        position: absolute;
-        top: 100%;
-        right: 0;
+        position: fixed;
         left: 0;
+        right: 0;
+        width: 100%;
         padding: 10px 0;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+    .nav-links li a {
+        display: block; /* Make the anchor take up the full width */
+        text-decoration: none;
+        color: #e0e0e0;
+        font-size: 1.2rem;
+        text-align: center;
+        background-color:rgb(30, 30, 30); /* Dark background for the links */
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        width: 100%; /* Ensure the anchor spans the full width of the parent */
     }
 
     .nav-links.active {
-        display: flex;
+        display: block;
+        top: 80px; /* Adjust to match the height of your header */
+    }
+    .essays-container {
+        display: block;
+        gap: 20px; /* Add spacing between essay divs */
+        justify-content: center; /* Center the essay divs */
+        margin: 0; /* Remove any default margin */
+        padding: 0; /* Remove padding to ensure full width */
+        width: 100%; /* Ensure the container spans the full width */
+        box-sizing: border-box; /* Include padding and border in the width calculation */
     }
 
-    .menu-toggle {
-        display: block;
+    .essay {
+        margin: 0 auto; /* Center the essay within the container */
+        max-height: 300px;
+        width: 50%;
+        text-align: center;
+        border-radius: 20px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 100%;
+        margin: 5px; /* Adjust margin for better spacing */
+    }
+
+    .essay img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-bottom: 1px solid #ddd;
+    }
+    .essay h2 {
+        font-size: 1.2rem;
+        margin: 15px 10px;
+        color: white;
+    }
+    
+    .essay-link {
+        font-size: 1rem;
+        color: #fff;
+        background-color: #333;
+        text-decoration: none;
+        padding: 10px;
+        display: inline-block;
+        transition: background-color 0.3s ease;
+    }
+    
+    .essay-link:hover {
+        background-color: #555;
     }
 }
 /* Header Styling for Larger Screens */
@@ -123,6 +229,24 @@ nav {
         display: flex; /* Ensure the links are displayed in a row */
         justify-content: flex-end; /* Align the links to the right */
         gap: 20px; /* Add spacing between links */
+    }
+    .menu-toggle {
+        display: none; /* Hide the menu toggle button on larger screens */
+    }
+    .essay {
+        flex: 1 1 calc(30% - 20px); /* Make the essay divs responsive */
+        max-width: calc(30% - 20px); /* Ensure the divs don't exceed 30% of the container */
+        text-align: center;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(128, 0, 128, 0.6);
+        background-color: #f9f9f9;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 100%;
+        margin: 5px; /* Adjust margin for better spacing */
     }
 }
 
@@ -151,22 +275,6 @@ main {
 
 #main-for-essays {
     margin: 0 5%;
-}
-
-.essay {
-    flex: 1 1 calc(30% - 20px); /* Make the essay divs responsive */
-    max-width: calc(30% - 20px); /* Ensure the divs don't exceed 30% of the container */
-    text-align: center;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(128, 0, 128, 0.6);
-    background-color: #f9f9f9;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    height: 100%;
-    margin: 5px; /* Adjust margin for better spacing */
 }
 
 
